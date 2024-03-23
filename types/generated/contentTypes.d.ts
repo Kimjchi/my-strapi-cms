@@ -788,6 +788,102 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
 }
 
+export interface ApiAboutAbout extends Schema.SingleType {
+  collectionName: 'abouts';
+  info: {
+    singularName: 'about';
+    pluralName: 'abouts';
+    displayName: 'About';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    description: Attribute.Text &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    image: Attribute.Media &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    title: Attribute.String &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    imageCaption: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::about.about',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::about.about',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::about.about',
+      'oneToMany',
+      'api::about.about'
+    >;
+    locale: Attribute.String;
+  };
+}
+
+export interface ApiContactContact extends Schema.CollectionType {
+  collectionName: 'contacts';
+  info: {
+    singularName: 'contact';
+    pluralName: 'contacts';
+    displayName: 'Contact';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    logo: Attribute.Media;
+    url: Attribute.String & Attribute.Required & Attribute.Unique;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::contact.contact',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::contact.contact',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiDrawingDrawing extends Schema.CollectionType {
   collectionName: 'drawings';
   info: {
@@ -812,6 +908,36 @@ export interface ApiDrawingDrawing extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::drawing.drawing',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiHomePageHomePage extends Schema.SingleType {
+  collectionName: 'home_pages';
+  info: {
+    singularName: 'home-page';
+    pluralName: 'home-pages';
+    displayName: 'Home Page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    content: Attribute.RichText;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::home-page.home-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::home-page.home-page',
       'oneToOne',
       'admin::user'
     > &
@@ -901,7 +1027,10 @@ declare module '@strapi/types' {
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
+      'api::about.about': ApiAboutAbout;
+      'api::contact.contact': ApiContactContact;
       'api::drawing.drawing': ApiDrawingDrawing;
+      'api::home-page.home-page': ApiHomePageHomePage;
       'api::photo.photo': ApiPhotoPhoto;
       'api::project.project': ApiProjectProject;
     }
