@@ -40,6 +40,9 @@
     },
     "content": {
       "type": "richtext"
+    },
+    "stack": {
+      "type": "json"
     }
   }
 }
