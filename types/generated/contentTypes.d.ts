@@ -994,6 +994,7 @@ export interface ApiProjectProject extends Schema.CollectionType {
     description: Attribute.Text & Attribute.Required;
     client: Attribute.String;
     content: Attribute.RichText;
+    stack: Attribute.JSON;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
